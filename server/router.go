@@ -4,6 +4,7 @@ import (
 	"MyGram/docs"
 	"MyGram/server/controllers"
 
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
@@ -30,7 +31,7 @@ func (r *Router) Start(port string) {
 	docs.SwaggerInfo.Description = "Sample API Spec for MyGram"
 	docs.SwaggerInfo.Version = "1.0"
 	docs.SwaggerInfo.Host = "hacktiv8finaltest-development.up.railway.app"
-	docs.SwaggerInfo.Schemes = []string{"http", "https"}
+	docs.SwaggerInfo.Schemes = []string{"https"}
 
 	router := gin.Default()
 	router.POST("/users/register", r.userRouter.CreateUser)
@@ -54,5 +55,14 @@ func (r *Router) Start(port string) {
 	router.DELETE("/comments/:commentId", CheckAuth, r.commentRouter.DeleteComment)
 
 	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+
+	setUpCORS(router)
 	router.Run(port)
+}
+
+func setUpCORS(g *gin.Engine) {
+	config := cors.DefaultConfig()
+	config.AllowAllOrigins = true
+
+	g.Use(cors.New(config))
 }
