@@ -29,7 +29,7 @@ func (r *Router) Start(port string) {
 	docs.SwaggerInfo.Title = "Swagger MyGram API"
 	docs.SwaggerInfo.Description = "Sample API Spec for MyGram"
 	docs.SwaggerInfo.Version = "1.0"
-	docs.SwaggerInfo.Host = "finalproject-production-9000.up.railway.app"
+	docs.SwaggerInfo.Host = "hacktiv8finaltest-development.up.railway.app"
 	docs.SwaggerInfo.Schemes = []string{"http", "https"}
 
 	router := gin.Default()
